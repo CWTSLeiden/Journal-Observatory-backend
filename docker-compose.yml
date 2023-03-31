@@ -7,8 +7,8 @@ services:
     environment:
       - GDB_HEAP_SIZE=3g
     volumes:
-      - ./config/graphdb:/opt/graphdb/conf
-      - ./databases:/opt/graphdb/data/repositories
+      - ./graphdb/graphdb.properties:/opt/graphdb/conf/graphdb.properties
+      - ./graphdb_data:/opt/graphdb/data/repositories
     ports:
       - 7200:7200
   pad_api:
@@ -16,8 +16,6 @@ services:
       context: .
       dockerfile: ./pad_api/Dockerfile
     container_name: pad_api
-    volumes:
-      - ./config:/app/config
     environment:
       - APP_ENVIRONMENT=develop
       - APP_HOST=0.0.0.0

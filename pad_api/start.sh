@@ -3,7 +3,7 @@ set -e
 
 if [ "$1" = "run" ] || [ -z "$1" ]; then
     # Set defaults
-    export PYTHONPATH="${PYTHONPATH:-./src}"
+    export PYTHONPATH="${PYTHONPATH:-./pad_api/src}"
     export APP_HOST="${APP_HOST:-0.0.0.0}"
     export APP_PORT="${APP_PORT:-5000}"
 

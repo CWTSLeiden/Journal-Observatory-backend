@@ -1,6 +1,4 @@
 *.lock
 *.bkp
 __pycache__
-/config/graphdb/*
-!/config/graphdb/*.properties
-/databases
+/graphdb_data
