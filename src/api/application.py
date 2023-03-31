@@ -1,11 +1,10 @@
 from flasgger import Swagger
-from flask import Flask, request
+from flask import Flask, request, redirect, url_for
 from flask.json import jsonify
 from marshmallow import ValidationError
 
 # Construct and configure the Flask application
 api = Flask(__name__)
-api.config["global_limit"] = 50
 
 # Construct and configure the Swagger documentation
 doc_config = {
@@ -14,12 +13,17 @@ doc_config = {
         "description": (
             "This REST endpoint provides an alternative endpoint to the "
             "Journal Observatory Platform Assertion Document "
-            "[SPARQL endpoint](http://localhost:7200/repositories/job)."
+            f"[SPARQL endpoint]({api.config.get('sparql_endpoint')})."
         ),
         "version": "0.0.1"
     }
 }
 doc = Swagger(api, template=doc_config)
+
+@api.route('/')
+@api.route('/api')
+def apidocs():
+    return redirect('/apidocs')
 
 # PAD api endpoint
 from api.pad import PADView, PADSubView

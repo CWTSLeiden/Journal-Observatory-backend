@@ -1,5 +1,3 @@
-from configparser import ConfigParser
-import os
 from rdflib import BNode
 from rdflib import Dataset
 from rdflib.plugins.stores.sparqlstore import SPARQLStore
@@ -12,7 +10,7 @@ def bnode_to_sparql(node):
     return node.n3()
 
 
-def sparql_store(query_endpoint : str) -> Dataset:
+def sparql_store(query_endpoint) -> Dataset:
     db = SPARQLStore(
         node_to_sparql=bnode_to_sparql,
         query_endpoint=query_endpoint
@@ -20,10 +18,3 @@ def sparql_store(query_endpoint : str) -> Dataset:
     graph = Dataset(store=db)
     graph.namespace_manager = PADNamespaceManager()
     return graph
-
-
-def sparql_store_config(config : ConfigParser) -> Dataset:
-    host = os.getenv("APP_SPARQL_HOST", config.get("store", "host"))
-    query_path = os.getenv("APP_SPARQL_QUERY_PATH", config.get("store", "query_path"))
-    query_endpoint = f"{host}{query_path}"
-    return sparql_store(query_endpoint)

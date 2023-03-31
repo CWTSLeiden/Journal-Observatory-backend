@@ -4,14 +4,14 @@ from flask.views import MethodView
 from rdflib import ConjunctiveGraph
 from utils.namespace import PAD
 from utils.pad import PADGraph
-from utils.store import sparql_store_config
-from utils import db_config
+from utils.store import sparql_store
+from api.config import sparql_endpoint
 import json
 
 
 class PADView(MethodView):
     def __init__(self):
-        self.db = sparql_store_config(db_config)
+        self.db = sparql_store(sparql_endpoint)
 
     def get(self, id):
         """
