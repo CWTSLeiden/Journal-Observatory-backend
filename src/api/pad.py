@@ -5,13 +5,13 @@ from rdflib import ConjunctiveGraph
 from utils.namespace import PAD
 from utils.pad import PADGraph
 from utils.store import sparql_store
-from api.config import sparql_endpoint
+from api import SPARQL_ENDPOINT
 import json
 
 
 class PADView(MethodView):
     def __init__(self):
-        self.db = sparql_store(sparql_endpoint)
+        self.db = sparql_store(SPARQL_ENDPOINT)
 
     def get(self, id):
         """

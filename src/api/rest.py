@@ -3,7 +3,7 @@ from flask import abort
 from flask.views import MethodView
 from utils.store import sparql_store
 from marshmallow import Schema, ValidationError, fields, EXCLUDE, post_load, validates, validate
-from api.config import sparql_endpoint, global_limit
+from api import SPARQL_ENDPOINT, GLOBAL_LIMIT
 import json
 
 class ResultsMeta():
@@ -61,9 +61,8 @@ class MetaSchema(Schema):
     limit = fields.Int(required=False, dump_default=10, load_default=10)
     @validates("limit")
     def validate_limit(self, value):
-        from api.application import api
-        if value > global_limit:
-            raise ValidationError(f"limit of {value} exeeds global limit of {global_limit}")
+        if value > GLOBAL_LIMIT:
+            raise ValidationError(f"limit of {value} exeeds global limit of {GLOBAL_LIMIT}")
     page = fields.Int(required=False, dump_default=0, load_default=0)
 
     @post_load
@@ -77,7 +76,7 @@ class ApiResource(MethodView):
         self.results = []
         self.meta = ResultsMeta()
         self.schema = MetaSchema()
-        self.db = sparql_store(sparql_endpoint)
+        self.db = sparql_store(SPARQL_ENDPOINT)
 
     def check_paging(self):
         """

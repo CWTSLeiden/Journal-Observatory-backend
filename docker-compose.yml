@@ -7,9 +7,8 @@ services:
     environment:
       - GDB_HEAP_SIZE=3g
     volumes:
-      - ./ontology:/opt/graphdb/ontology
       - ./config/graphdb:/opt/graphdb/conf
-      # ./databases:/opt/graphdb/data/repositories
+      - ./databases:/opt/graphdb/data/repositories
     ports:
       - 7200:7200
   pad_api:
@@ -24,7 +23,7 @@ services:
       - APP_HOST=0.0.0.0
       - APP_PORT=5001
       - APP_SPARQL_HOST=http://graphdb:7200
-      - APP_SPARQL_QUERY_PATH=/repositories/job
-      - APP_SPARQL_UPDATE_PATH=/repositories/job/statements
+      - APP_SPARQL_QUERY_PATH=/repositories/pad
+      - APP_GLOBAL_LIMIT=50
     ports:
       - 5001:5001

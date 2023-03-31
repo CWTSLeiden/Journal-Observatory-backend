@@ -1,8 +1,6 @@
 *.lock
 *.bkp
 __pycache__
-test/*
-data/*
-!data/publisher_peer_review
-data/publisher_peer_review/*
-!data/publisher_peer_review/xlsx/
+/config/graphdb/*
+!/config/graphdb/*.properties
+/databases
