@@ -1,0 +1,8 @@
+Flask
+flasgger
+gunicorn
+marshmallow
+pyld
+pyright
+rdflib
+requests
