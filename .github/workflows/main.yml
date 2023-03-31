@@ -13,5 +13,5 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
-        source: "config,pad_api,src,docker-compose.yml,requirements.txt"
+        source: "graphdb,pad_api,docker-compose.yml"
         target: "app"
