@@ -19,9 +19,23 @@ services:
     environment:
       - APP_ENVIRONMENT=develop
       - APP_HOST=0.0.0.0
-      - APP_PORT=5001
+      - APP_PORT=5000
       - APP_SPARQL_HOST=http://graphdb:7200
       - APP_SPARQL_QUERY_PATH=/repositories/pad
       - APP_GLOBAL_LIMIT=50
     ports:
-      - 5001:5001
+      - 5001:5000
+  job_api:
+    build:
+      context: .
+      dockerfile: ./pad_api/Dockerfile
+    container_name: job_api
+    environment:
+      - APP_ENVIRONMENT=develop
+      - APP_HOST=0.0.0.0
+      - APP_PORT=5002
+      - APP_SPARQL_HOST=http://graphdb:7200
+      - APP_SPARQL_QUERY_PATH=/repositories/job
+      - APP_GLOBAL_LIMIT=50
+    ports:
+      - 5002:5000
