@@ -3,6 +3,8 @@ from flask import Flask, request, redirect
 from flask.json import jsonify
 from marshmallow import ValidationError
 
+from pad_api.src.api import SPARQL_ENDPOINT
+
 # Construct and configure the Flask application
 api = Flask(__name__)
 
@@ -12,8 +14,8 @@ doc_config = {
         "title": "Journal Observatory - Platform Assertion Document API",
         "description": (
             "This REST endpoint provides an alternative endpoint to the "
-            "Journal Observatory Platform Assertion Document "
-            f"[SPARQL endpoint]({api.config.get('sparql_endpoint')})."
+            "Journal Observatory Platform Assertion Document SPARQL endpoint at "
+            f"[]({SPARQL_ENDPOINT.replace('http://graphdb:7200', 'https://journalobservatory.org')})."
         ),
         "version": "0.0.1"
     }
