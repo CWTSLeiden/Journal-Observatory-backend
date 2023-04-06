@@ -3,7 +3,7 @@ from flask import Flask, request, redirect
 from flask.json import jsonify
 from marshmallow import ValidationError
 
-from pad_api.src.api import SPARQL_ENDPOINT
+from api import SPARQL_ENDPOINT
 
 # Construct and configure the Flask application
 api = Flask(__name__)
