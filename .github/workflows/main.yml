@@ -23,5 +23,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd /root/app || exit
+          docker-compose build pad_api
+          docker-compose build job_api
           docker-compose up -d
 
