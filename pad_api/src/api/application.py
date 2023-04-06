@@ -1,5 +1,5 @@
 from flasgger import Swagger
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect
 from flask.json import jsonify
 from marshmallow import ValidationError
 
@@ -32,8 +32,8 @@ api.add_url_rule("/pad/<id>/<sub>", view_func=PADSubView.as_view("pad_sub"))
 
 # PADs api endpoint
 from api.pads import PADsView, PADsIdView
-api.add_url_rule("/api/pads", view_func=PADsView.as_view("pads"))
-api.add_url_rule("/api/pads/<id>", view_func=PADsIdView.as_view("pads_id"))
+api.add_url_rule("/pads", view_func=PADsView.as_view("pads"))
+api.add_url_rule("/pads/<id>", view_func=PADsIdView.as_view("pads_id"))
 
 # Error handling
 @api.errorhandler(400)
