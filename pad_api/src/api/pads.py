@@ -184,7 +184,7 @@ class PADsView(ApiResource):
             {"?assertion dcterms:creator ?a_creator ." if "?a_creator" in query_filter else ""}
             {"?assertion dcterms:created ?a_created ." if "?a_created" in query_filter else ""}
             {"?assertion dcterms:license ?a_license ." if "?a_license" in query_filter else ""}
-            graph ?assertion {{ ?platform a ppo:Platform }}
+            graph ?assertion {{ ?platform a scpo:Platform }}
             {"?platform dcterms:identifier ?p_identifier ." if "?p_identifier" in query_filter else ""}
             {"?platform schema:name ?p_name ." if "?p_name" in query_filter else ""}
             {"?platform dcterms:relation [ schema:name ?p_organization_name ] ." if "?p_organization_name" in query_filter else ""}

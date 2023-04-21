@@ -1,56 +1,14 @@
-from rdflib import Graph, Namespace, URIRef
-from rdflib.namespace import DefinedNamespace, NamespaceManager
+from rdflib import Graph, Namespace
+from rdflib.namespace import NamespaceManager
 from rdflib.namespace._DCTERMS import DCTERMS
 from rdflib.namespace._XSD import XSD
 from rdflib.namespace._RDF import RDF
 from rdflib.namespace._RDFS import RDFS
 from uuid import uuid4 as uuid
 
-class PPO(DefinedNamespace):
-    _NS = Namespace("http://purl.org/cwts/ppo/")
-    Accessible: URIRef
-    ArticlePublishingCharges: URIRef
-    AuthorEditorCommunication: URIRef
-    EvaluationPolicy: URIRef
-    NotAccessible: URIRef
-    OptIn: URIRef
-    Platform: URIRef
-    PlatformType: URIRef
-    Policy: URIRef
-    PublicAccessability: URIRef
-    PublicationElsewhereAllowedPolicy: URIRef
-    PublicationElsewhereMandatoryPolicy: URIRef
-    PublicationElsewherePolicy: URIRef
-    PublicationElsewhereProhibitedPolicy: URIRef
-    PublicationPolicy: URIRef
-    ReviewReport: URIRef
-    ReviewSummary: URIRef
-    SubmittedManuscript: URIRef
-    anonymousTo: URIRef
-    appliesToVersion: URIRef
-    covers: URIRef
-    hasArticlePublishingCharges: URIRef
-    hasCopyrightOwner: URIRef
-    hasFatcatId: URIRef
-    hasInitiator: URIRef
-    hasOpenalexId: URIRef
-    hasPlatformType: URIRef
-    hasPolicy: URIRef
-    hasSherpaRomeoId: URIRef
-    identityPubliclyAccessible: URIRef
-    interactsWith: URIRef
-    involves: URIRef
-    isOpenAccess: URIRef
-    optInBy: URIRef
-    ontology: URIRef
-    postPublicationCommenting: URIRef
-    postPublicationCommentingClosed: URIRef
-    postPublicationCommentingOnInvitation: URIRef
-    postPublicationCommentingOpen: URIRef
-    publicationCondition: URIRef
-    publiclyAccessible: URIRef
-
+SCPO = Namespace("http://purl.org/cwts/scpo/")
 PAD = Namespace("https://journalobservatory.org/pad/")
+JOB = Namespace("https://journalobservatory.org/job/pad/")
 
 CC = Namespace("http://creativecommons.org/ns#")
 DOAJ = Namespace("https://doaj.org/")
@@ -77,16 +35,18 @@ RDFS = RDFS
 
 
 class PADNamespaceManager(NamespaceManager):
-    def __init__(self, this=None):
+    def __init__(self, this=None, prefix=PAD):
         super().__init__(Graph())
+        self.PREFIX = prefix
         self.bind("cc", CC)
         self.bind("doaj", DOAJ)
         self.bind("dcterms", DCTERMS)
         self.bind("fabio", FABIO)
         self.bind("fc", FC)
         self.bind("issn", ISSN)
+        self.bind("job", JOB)
         self.bind("pad", PAD)
-        self.bind("ppo", PPO)
+        self.bind("scpo", SCPO)
         self.bind("loc", LOC)
         self.bind("openalex", OPENALEX)
         self.bind("prism", PRISM)
@@ -104,7 +64,7 @@ class PADNamespaceManager(NamespaceManager):
 
     def bind_this(self, this=None):
         if not this:
-            this = PAD + str(uuid())
+            this = self.PREFIX + str(uuid())
         self.THIS = Namespace(this)
         self.SUB = Namespace(self.THIS + "/")
         self.bind("this", self.THIS)
