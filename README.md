@@ -24,7 +24,7 @@ docker-compose up -d graphdb
 
 ## PAD API
 
-The PAD API is a [Flask](https://flask.palletsprojects.com) App that serves PADs over a REST API. It has 2 modes:
+The PAD API is a [Flask](https://flask.palletsprojects.com) App that serves PADs over a REST API. It is meant to provide simple access to the PADs stored in the triple store, as a limited alternative to the SPARQL endpoint. The API has 2 modes:
 - `/api/pads`: Get a list of PADs based on an optional search query
 - `/pad/<id>`: View a single pad in a `JSON-LD`, `Trig` or Graphical format
 

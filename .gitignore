@@ -2,3 +2,4 @@
 *.bkp
 __pycache__
 /graphdb_data
+/.python-version

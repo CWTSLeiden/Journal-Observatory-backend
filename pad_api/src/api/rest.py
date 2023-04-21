@@ -135,7 +135,8 @@ def debug_pad_urls(result):
     import os
     from utils.namespace import PAD
     port = os.getenv("APP_PORT") or "5000"
-    debug_url = f"http://localhost:{port}/pad/"
+    host = os.getenv("APP_HOST") or "localhost"
+    debug_url = f"http://{host}:{port}/pad/"
     if type(result) == dict:
         string = json.dumps(result)
         string = string.replace(str(PAD), debug_url)
