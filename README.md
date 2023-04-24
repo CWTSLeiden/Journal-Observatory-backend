@@ -1,5 +1,7 @@
 # Journal Observatory backend
 
+This repository contains the source code of the backend developed in the [Journal Observatory project](https://www.journalobservatory.org). The backend consists of a GraphDB triplestore, a SPARQL endpoint, and a REST API.
+
 ## GraphDB
 
 [GraphDB](https://graphdb.ontotext.com/) is the triplestore backend for the [Journal Observatory project](https://www.journalobservatory.org). It can be run on the free-tier. It provides a triplestore, SPARQL endpoint, and a graphical user interface to manage the server.
@@ -28,7 +30,7 @@ The PAD API is a [Flask](https://flask.palletsprojects.com) application that ser
 - `/api/pads`: Get a list of PADs based on an optional search query
 - `/pad/<id>`: View a single pad in a `JSON-LD`, `Trig` or Graphical format
 
-The documentation of the api can be found at `/apidocs`
+The documentation of the API can be found at `/apidocs`
 
 ### Deployment
 
