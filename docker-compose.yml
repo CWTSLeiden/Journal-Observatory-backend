@@ -5,7 +5,7 @@ services:
     image: khaller/graphdb-free
     container_name: graphdb
     environment:
-      - GDB_HEAP_SIZE=3g
+      - GDB_HEAP_SIZE=4g
     volumes:
       - ./graphdb/graphdb.properties:/opt/graphdb/conf/graphdb.properties
       - ./graphdb_data:/opt/graphdb/data/repositories
@@ -23,6 +23,7 @@ services:
       - APP_SPARQL_HOST=http://graphdb:7200
       - APP_SPARQL_QUERY_PATH=/repositories/pad
       - APP_GLOBAL_LIMIT=50
+      - APP_PAD_PREFIX=https://journalobservatory.org/pad/
     ports:
       - 5001:5000
   job_api:
@@ -37,5 +38,6 @@ services:
       - APP_SPARQL_HOST=http://graphdb:7200
       - APP_SPARQL_QUERY_PATH=/repositories/job
       - APP_GLOBAL_LIMIT=50
+      - APP_PAD_PREFIX=https://journalobservatory.org/job/pad/
     ports:
       - 5002:5000

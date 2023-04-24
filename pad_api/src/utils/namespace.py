@@ -1,3 +1,4 @@
+import os
 from rdflib import Graph, Namespace
 from rdflib.namespace import NamespaceManager
 from rdflib.namespace._DCTERMS import DCTERMS
@@ -6,9 +7,10 @@ from rdflib.namespace._RDF import RDF
 from rdflib.namespace._RDFS import RDFS
 from uuid import uuid4 as uuid
 
-SCPO = Namespace("http://purl.org/cwts/scpo/")
+SCPO = Namespace("http://purl.org/job/scpo/")
 PAD = Namespace("https://journalobservatory.org/pad/")
 JOB = Namespace("https://journalobservatory.org/job/pad/")
+PAD_PREFIX = Namespace(os.getenv("APP_PAD_PREFIX", "https://journalobservatory.org/pad/"))
 
 CC = Namespace("http://creativecommons.org/ns#")
 DOAJ = Namespace("https://doaj.org/")
@@ -35,7 +37,7 @@ RDFS = RDFS
 
 
 class PADNamespaceManager(NamespaceManager):
-    def __init__(self, this=None, prefix=PAD):
+    def __init__(self, this=None, prefix=PAD_PREFIX):
         super().__init__(Graph())
         self.PREFIX = prefix
         self.bind("cc", CC)

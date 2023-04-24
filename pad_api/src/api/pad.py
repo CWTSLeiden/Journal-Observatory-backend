@@ -2,7 +2,7 @@ from flask import render_template, request, abort
 from flask.helpers import make_response
 from flask.views import MethodView
 from rdflib import ConjunctiveGraph
-from utils.namespace import PAD
+from utils.namespace import PAD_PREFIX
 from utils.pad import PADGraph
 from utils.store import sparql_store
 from api import SPARQL_ENDPOINT
@@ -75,7 +75,7 @@ class PADView(MethodView):
         Extract a PAD or a named graph of a PAD based on its identifier.
         The identifier should be passed without the url prefix.
         """
-        pad = PADGraph(identifier=PAD[id])
+        pad = PADGraph(identifier=PAD_PREFIX[id])
         if sub:
             pad.build(self.db, pad.SUB[sub])
         else:
