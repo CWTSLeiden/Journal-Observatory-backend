@@ -8,8 +8,7 @@ from rdflib.namespace._RDFS import RDFS
 from uuid import uuid4 as uuid
 
 SCPO = Namespace("http://purl.org/job/scpo/")
-PAD = Namespace("https://journalobservatory.org/pad/")
-JOB = Namespace("https://journalobservatory.org/job/pad/")
+PAD = Namespace("http://purl.org/job/pad/")
 PAD_PREFIX = Namespace(os.getenv("APP_PAD_PREFIX", "https://journalobservatory.org/pad/"))
 
 CC = Namespace("http://creativecommons.org/ns#")
@@ -46,7 +45,6 @@ class PADNamespaceManager(NamespaceManager):
         self.bind("fabio", FABIO)
         self.bind("fc", FC)
         self.bind("issn", ISSN)
-        self.bind("job", JOB)
         self.bind("pad", PAD)
         self.bind("scpo", SCPO)
         self.bind("loc", LOC)
