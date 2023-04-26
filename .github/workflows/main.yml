@@ -14,16 +14,16 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         source: "graphdb,pad_api,docker-compose.yml"
-        target: "app"
-    - name: "docker-compose up"
-      uses: appleboy/ssh-action@v0.1.8
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          cd /root/app || exit
-          docker-compose build pad_api
-          docker-compose build job_api
-          docker-compose up -d
+        target: "/root/app"
+    # - name: "docker-compose up"
+    #   uses: appleboy/ssh-action@v0.1.8
+    #   with:
+    #     host: ${{ secrets.HOST }}
+    #     username: ${{ secrets.USER }}
+    #     key: ${{ secrets.SSH_KEY }}
+    #     script: |
+    #       cd /root/app || exit
+    #       docker-compose build pad_api
+    #       docker-compose build job_api
+    #       docker-compose up -d
 

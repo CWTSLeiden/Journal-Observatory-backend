@@ -10,7 +10,7 @@ GraphDB can be deployed using docker:
 ```shell
 docker run \
     --name graphdb \
-    --env GDB_HEAP_SIZE=12G \
+    --env GDB_HEAP_SIZE=4G \
     --publish 7200:7200 \
     --volume ./graphdb/graphdb.properties:/opt/graphdb/conf/graphdb.properties \
     --volume ./graphdb_data:/opt/graphdb/data/repositories \
@@ -21,6 +21,16 @@ Or using docker-compose and the `docker-compose.yml` file:
 ```
 docker-compose up -d graphdb
 ```
+
+### Configuration
+
+`GDB_HEAP_SIZE` is the amount of memory that GraphDB may reserve for operations. If this property is set to too high a value, GraphDB can segfault on heavy queries. It is recommended to not set this to more than 2/3 of the total memory available on the server (less if there are more processes taking up memory besides the OS and GraphDB).
+
+`graphdb_data` is the place where the database files are stored, if this mount-bind is not present, data will only be stored as long as the graphdb docker container is not removed or rebuilt.
+
+`graphdb.properties` contains specific configuration variables for GraphDB (see [Documentation](https://graphdb.ontotext.com/documentation/10.2/directories-and-config-properties.html?highlight=properties#what-s-in-this-document)). In particular, to make the interface available on a custom domain, the `graphdb.vhosts` and `graphdb.external-url` properties need to be set to the url where the graphdb interface is available. `graphdb.workbench.cors.enable` needs to be enabled and `graphdb.workbench.cors.origin` set to the ip-adresses of hosts that can reach the interface (`*` for all adresses).
+
+GraphDB
 
 ## PAD API
 
@@ -59,11 +69,25 @@ docker run \
     --env APP_SPARQL_HOST=http://graphdb:7200
     --env APP_SPARQL_QUERY_PATH=/repositories/pad
     --env APP_GLOBAL_LIMIT=50
+    --env APP_PAD_PREFIX=https://journalobservatory.org/pad/
     --publish "${APP_PORT}:${APP_PORT}"
     pad_api
 ```
 
 Or using docker-compose and the `docker-compose.yml` file:
 ```
+docker-compose build pad_api
 docker-compose up -d pad_api
 ```
+
+### Configuration
+
+The app is configured with the `APP_` environment variables:
+
+- `APP_ENVIRONMENT`: 'development' or 'production', when 'development' the app runs with `flask --debug` otherwise gunicorn is used. (default 'development')
+- `APP_HOST`: On which interface the app is available. (default '0.0.0.0' - all interfaces)
+- `APP_PORT`: On which port the app is available (default 5000)
+- `APP_SPARQL_HOST`: Host part of the SPARQL endpoint (if the full SPARQL endpoint is 'http://sparqlserver.example/sparql/query' this should be 'http://sparqlserver.example')
+- `APP_SPARQL_QUERY_PATH`: Path part of the SPARQL endpoint (if the full SPARQL endpoint is 'http://sparqlserver.example/sparql/query' this should be '/sparql/query')
+- `APP_GLOBAL_LIMIT`: Maximum number of PADs on a single api page for the /pads path (default: 50)
+- `APP_PAD_PREFIX`: Prefix for the pads that will be served by the api (default: 'https://journalobservatory.org/pad/')
